@@ -1,3 +1,2 @@
 .DS_Store
-client_secret.json
-credential_sample.json
+*.json

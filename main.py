@@ -52,10 +52,9 @@ CLIENT_SECRETS_FILE = "client_secret.json"
 import os
 import multiprocessing as mp
 import time
-import google_auth_oauthlib.flow
+import json
 import googleapiclient.discovery
 import googleapiclient.errors
-
 from oauth2client import client # Added
 from oauth2client import tools # Added
 from oauth2client.file import Storage # Added
@@ -76,19 +75,24 @@ youtubeApiClient = get_authenticated_service()
 def get_result(result):
     results.append(result)
 
-def execute_youtube_api(channelId):
-    return youtubeApiClient.channels().list(part="snippet, contentDetails, statistics", id=channelId).execute()
+def collect_channel_info(channelId):
+    ts = time.time()
+    response= youtubeApiClient.channels().list(part="snippet, contentDetails, statistics", id=channelId).execute()
+    print(channelId, ' took ', time.time() - ts, 'in parallel')
+    return response
 
 def main():
-    # print(execute_youtube_api(LIST_OF_CHANNEL_IDS[3]))
-    ts = time.time()
-    for channelID in LIST_OF_CHANNEL_IDS:
-        pool = mp.Pool(mp.cpu_count())
-        pool.apply_async(execute_youtube_api, args = (channelID, ), callback=get_result)
-        pool.close()
-        pool.join()
-        print('Time in parallel:', time.time() - ts)
-    print(results)
+    # execute_youtube_api_and_collect_data(LIST_OF_CHANNEL_IDS[3])
+    pool = mp.Pool(mp.cpu_count())
+    pool_result=pool.map(collect_channel_info, LIST_OF_CHANNEL_IDS)
+    pool.close()
+    pool.join()
+    print(pool_result)
+    with open('channelData.json', 'w') as file:
+        json.dump(pool_result, file)
     
+
+
 if __name__ == "__main__":
-    main()
+    pass
+    # main()
