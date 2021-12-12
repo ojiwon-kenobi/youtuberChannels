@@ -27,28 +27,28 @@ LIST_OF_CHANNEL_IDS = [
 "UCOinp9hALPUcZeoL3Kmaviw",
 "UCGwu0nbY2wSkW8N-cghnLpA",
 "UCu6v4AdYxVH5fhfq9mi5llA",
-"UC5e3Q5ydbj30UQufBZm5wHA",
 "UCj74rJ9Lgl3WTngq675wxKg",
+"UCNIuvl7V8zACPpTmmNIqP2A",
 "UCo8bcnLyZH8tBIH9V1mLgqQ",
 "UCR0O-1cvuPNxDosvSDLpWHg",
-"UCQ9HvHH-KRYHI5ynj2kbLwQ",
 "UCvUmwreRrbxeR1mbmojj8fg",
-"UCWPB0WpnMIy-g7zncwIhvQg",
 "UCUKi4zY5ETSqrKAjTBgjM-g",
 "UCDQBZcjYKP1J1Nu-Y0_D37Q",
+"UCQ9HvHH-KRYHI5ynj2kbLwQ",
 "UCRfg0SWjIHm_h95e4V8X5og",
+"UCWPB0WpnMIy-g7zncwIhvQg",
 "UCC-slLJZ4p4HOznMUcFn_2g"]
 API_SERVICE_NAME = "youtube"
 API_VERSION = "v3"
 SCOPES = ["https://www.googleapis.com/auth/youtube.readonly"]
 CLIENT_SECRETS_FILE = "client_secret.json"
+LIST_OF_UPLOAD_IDS = ['UU' + ids[2:] for ids in LIST_OF_CHANNEL_IDS]
 
 # -*- coding: utf-8 -*-
 
 # Sample Python code for youtube.channels.list
 # See instructions for running these code samples locally:
 # https://developers.google.com/explorer-help/guides/code_samples#python
-
 import os
 import multiprocessing as mp
 import time
@@ -90,9 +90,44 @@ def main():
     print(pool_result)
     with open('channelData.json', 'w') as file:
         json.dump(pool_result, file)
+
+def collect_videos_initial_page(channelId):
+    ts = time.time()
+    request = youtubeApiClient.search().list(
+        part="snippet",
+        channelId=channelId,
+        maxResults=50,
+    )
+    response = request.execute()
+    response_list = [response]
+    while ("nextPageToken" in response):
+        nextPageToken = response["nextPageToken"]
+        response = collect_videos_using_pageToken(channelId, nextPageToken)
+        response_list.append(response)
+    print(channelId, ' took ', time.time() - ts, 'in parallel')
+    return {channelId: response_list}
+
+def collect_videos_using_pageToken(channelId, pageToken):
+    ts = time.time()
+    request = youtubeApiClient.search().list(
+        part="snippet",
+        channelId=channelId,
+        maxResults=50,
+        pageToken=pageToken
+        )
+    response = request.execute()
+    print("pageToken", ' took ', time.time() - ts, 'in parallel')
+    return response
+
+def hahahaha_but_theres_more():
+    pool= mp.Pool(mp.cpu_count())
+    pool_result= pool.map(collect_videos_initial_page, LIST_OF_CHANNEL_IDS)
+    pool.close()
+    pool.join()
+    print("done")
+    with open('videoListForChannels.json', 'w') as file:
+        json.dump(pool_result, file)
     
 
-
 if __name__ == "__main__":
-    pass
-    # main()
+    hahahaha_but_theres_more()
