@@ -38,6 +38,10 @@ LIST_OF_CHANNEL_IDS = [
 "UCDQBZcjYKP1J1Nu-Y0_D37Q",
 "UCRfg0SWjIHm_h95e4V8X5og",
 "UCC-slLJZ4p4HOznMUcFn_2g"]
+API_SERVICE_NAME = "youtube"
+API_VERSION = "v3"
+SCOPES = ["https://www.googleapis.com/auth/youtube.readonly"]
+CLIENT_SECRETS_FILE = "client_secret.json"
 
 # -*- coding: utf-8 -*-
 
@@ -46,41 +50,45 @@ LIST_OF_CHANNEL_IDS = [
 # https://developers.google.com/explorer-help/guides/code_samples#python
 
 import os
-import asyncio
-from aiohttp import ClientSession
+import multiprocessing as mp
+import time
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
 import googleapiclient.errors
 
-scopes = ["https://www.googleapis.com/auth/youtube.readonly"]
+from oauth2client import client # Added
+from oauth2client import tools # Added
+from oauth2client.file import Storage # Added
 
-async def fetch(url, session):
-    async with session.get(url) as response:
-        return await response.read()
+def get_authenticated_service(): # Modified
+    credential_path = os.path.join('./', 'credential_sample.json')
+    store = Storage(credential_path)
+    credentials = store.get()
+    if not credentials or credentials.invalid:
+        print("Credentials are invalid")
+        flow = client.flow_from_clientsecrets(CLIENT_SECRETS_FILE, SCOPES)
+        credentials = tools.run_flow(flow, store)
+    return googleapiclient.discovery.build(API_SERVICE_NAME, API_VERSION, credentials=credentials)
+
+results=[]
+youtubeApiClient = get_authenticated_service()
+
+def get_result(result):
+    results.append(result)
+
+def execute_youtube_api(channelId):
+    return youtubeApiClient.channels().list(part="snippet, contentDetails, statistics", id=channelId).execute()
 
 def main():
-    # Disable OAuthlib's HTTPS verification when running locally.
-    # *DO NOT* leave this option enabled in production.
-    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
-    api_service_name = "youtube"
-    api_version = "v3"
-    client_secrets_file = "client_secret.json"
-    # Get credentials and create an API client
-    flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(
-        client_secrets_file, scopes)
-    credentials = flow.run_console()
-    youtubeApiClient = googleapiclient.discovery.build(
-        api_service_name, api_version, credentials=credentials)
-
-
-    request = youtubeApiClient.channels().list(
-        part="snippet,contentDetails,statistics",
-        id="UCsDmESjqNPukDmVnuneLrqw"
-    )
-    response = request.execute()
-
-
-    print(response)
-
+    # print(execute_youtube_api(LIST_OF_CHANNEL_IDS[3]))
+    ts = time.time()
+    for channelID in LIST_OF_CHANNEL_IDS:
+        pool = mp.Pool(mp.cpu_count())
+        pool.apply_async(execute_youtube_api, args = (channelID, ), callback=get_result)
+        pool.close()
+        pool.join()
+        print('Time in parallel:', time.time() - ts)
+    print(results)
+    
 if __name__ == "__main__":
     main()
