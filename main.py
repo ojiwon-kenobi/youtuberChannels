@@ -163,6 +163,6 @@ def collect_videoInfo():
     # pool_result = pool.map(collect_vidInfo, LIST_OF_VIDEOIDS)
 
 if __name__ == "__main__":
-    # main()
+    main()
     # hahahaha_but_theres_more()
-    process_list_of_videoIds()
+    # process_list_of_videoIds()
