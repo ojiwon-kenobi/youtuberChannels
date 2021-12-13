@@ -119,7 +119,7 @@ def collect_videos_using_pageToken(channelId, pageToken):
     print("pageToken", ' took ', time.time() - ts, 'in parallel')
     return response
 
-def hahahaha_but_theres_more():
+def collect_videos():
     pool= mp.Pool(mp.cpu_count())
     pool_result= pool.map(collect_videos_initial_page, LIST_OF_CHANNEL_IDS)
     pool.close()
@@ -127,7 +127,42 @@ def hahahaha_but_theres_more():
     print("done")
     with open('videoListForChannels.json', 'w') as file:
         json.dump(pool_result, file)
-    
+
+def collect_vidInfo_execute(ids):
+    ts=time.time()
+    request = youtubeApiClient.videos().list(
+        part="statistics,contentDetails,recordingDetails,status,topicDetails",
+        id=ids
+    )
+    response = request.execute()
+    print("videos ", ' took ', time.time() - ts, 'in parallel')
+    return response
+
+def process_list_of_videoIds():
+    content={}
+    with open('channelIdToListOfVideoInfos.json', 'r') as j:
+        content = json.loads(j.read())
+    listOfVidIds = []
+    for key in content.keys():
+        listOfVidIds = [entry['vidId'] for entry in content[key]]
+    print(listOfVidIds)
+    return listOfVidIds
+
+def collect_videoInfo():
+    listOfVidIds = process_list_of_videoIds()
+    pool= mp.Pool(mp.cpu_count())
+    n=50
+    pool_result= pool.map(collect_vidInfo_execute, [listOfVidIds[k:k+n] for k in range(0, len(listOfVidIds), n)])
+    pool.close()
+    pool.join()
+    print("done")
+    with open('videoListForChannels.json', 'w') as file:
+        json.dump(pool_result, file)
+
+    pool = mp.Pool(mp.cpu_count())
+    # pool_result = pool.map(collect_vidInfo, LIST_OF_VIDEOIDS)
 
 if __name__ == "__main__":
-    hahahaha_but_theres_more()
+    # main()
+    # hahahaha_but_theres_more()
+    process_list_of_videoIds()
