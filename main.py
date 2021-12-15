@@ -88,7 +88,7 @@ def main():
     pool.close()
     pool.join()
     print(pool_result)
-    with open('channelData.json', 'w') as file:
+    with open('channelListResponse.json', 'w') as file:
         json.dump(pool_result, file)
 
 def collect_videos_initial_page(channelId):
@@ -125,13 +125,13 @@ def collect_videos():
     pool.close()
     pool.join()
     print("done")
-    with open('videoListForChannels.json', 'w') as file:
+    with open('searchListResponse.json', 'w') as file:
         json.dump(pool_result, file)
 
 def collect_vidInfo_execute(ids):
     ts=time.time()
     request = youtubeApiClient.videos().list(
-        part="statistics,contentDetails,recordingDetails,status,topicDetails",
+        part="statistics,contentDetails,status,topicDetails",
         id=ids
     )
     response = request.execute()
@@ -139,30 +139,26 @@ def collect_vidInfo_execute(ids):
     return response
 
 def process_list_of_videoIds():
-    content={}
-    with open('channelIdToListOfVideoInfos.json', 'r') as j:
-        content = json.loads(j.read())
-    listOfVidIds = []
-    for key in content.keys():
-        listOfVidIds = [entry['vidId'] for entry in content[key]]
-    print(listOfVidIds)
+    with open('listOfVideoIds.json', 'r') as j:
+        listOfVidIds = json.loads(j.read())
+    print(len(listOfVidIds))
     return listOfVidIds
 
 def collect_videoInfo():
     listOfVidIds = process_list_of_videoIds()
     pool= mp.Pool(mp.cpu_count())
     n=50
+    print(len([listOfVidIds[k:k+n] for k in range(0, len(listOfVidIds), n)]))
+    print(len(listOfVidIds))
     pool_result= pool.map(collect_vidInfo_execute, [listOfVidIds[k:k+n] for k in range(0, len(listOfVidIds), n)])
     pool.close()
     pool.join()
     print("done")
-    with open('videoListForChannels.json', 'w') as file:
+    with open('videoInfoForChannels.json', 'w') as file:
         json.dump(pool_result, file)
 
-    pool = mp.Pool(mp.cpu_count())
-    # pool_result = pool.map(collect_vidInfo, LIST_OF_VIDEOIDS)
-
 if __name__ == "__main__":
-    main()
-    # hahahaha_but_theres_more()
+    # main()
+    # collect_videos()
     # process_list_of_videoIds()
+    collect_videoInfo()
