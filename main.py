@@ -141,8 +141,7 @@ def collect_vidInfo_execute(ids):
 def process_list_of_videoIds():
     with open('listOfVideoIds.json', 'r') as j:
         listOfVidIds = json.loads(j.read())
-    print(len(listOfVidIds))
-    return listOfVidIds
+    return set(listOfVidIds)
 
 def collect_videoInfo():
     listOfVidIds = process_list_of_videoIds()
@@ -154,11 +153,11 @@ def collect_videoInfo():
     pool.close()
     pool.join()
     print("done")
-    with open('videoInfoForChannels.json', 'w') as file:
+    with open('videoListResponse.json', 'w') as file:
         json.dump(pool_result, file)
 
 if __name__ == "__main__":
     # main()
     # collect_videos()
-    # process_list_of_videoIds()
-    collect_videoInfo()
+    process_list_of_videoIds()
+    # collect_videoInfo()
