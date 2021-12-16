@@ -159,15 +159,19 @@ def collect_videoInfo():
 def process_list_of_mostViewedVideoIds():
     with open('channelId_to_mostViewedVidId.json', 'r') as j:
         dict = json.loads(j.read())
-    return dict.values()
+        print(len(list(dict.values())))
+    return list(dict.values())
 
-def collect_video_transcripts():
+def collect_video_transcripts_and_mp4s():
     listOfMostViewedVidIds = process_list_of_mostViewedVideoIds()
-    
+    print(listOfMostViewedVidIds)
+    for mostViewedVidId in listOfMostViewedVidIds[:1]:
+        url = "https://www.youtube.com/watch?v=" + mostViewedVidId
+        os.system("youtube-dl --write-sub --write-auto-sub --sub-lang en """"{}"""" ".format(url))
+
 
 if __name__ == "__main__":
     # main()
     # collect_videos()
-    # process_list_of_videoIds()
     # collect_videoInfo()
-    process_list_of_mostViewedVideoIds()
+    collect_video_transcripts_and_mp4s()
