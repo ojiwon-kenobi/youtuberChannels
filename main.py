@@ -156,8 +156,18 @@ def collect_videoInfo():
     with open('videoListResponse.json', 'w') as file:
         json.dump(pool_result, file)
 
+def process_list_of_mostViewedVideoIds():
+    with open('channelId_to_mostViewedVidId.json', 'r') as j:
+        dict = json.loads(j.read())
+    return dict.values()
+
+def collect_video_transcripts():
+    listOfMostViewedVidIds = process_list_of_mostViewedVideoIds()
+    
+
 if __name__ == "__main__":
     # main()
     # collect_videos()
-    process_list_of_videoIds()
+    # process_list_of_videoIds()
     # collect_videoInfo()
+    process_list_of_mostViewedVideoIds()
