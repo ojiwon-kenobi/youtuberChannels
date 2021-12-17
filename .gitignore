@@ -4,3 +4,4 @@
 *.vtt
 *.txt
 UC*
+__pycache__/

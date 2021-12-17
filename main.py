@@ -58,6 +58,7 @@ import googleapiclient.errors
 from oauth2client import client # Added
 from oauth2client import tools # Added
 from oauth2client.file import Storage # Added
+from transcripts import transcripts
 
 def get_authenticated_service(): # Modified
     credential_path = os.path.join('./', 'credential_sample.json')
@@ -183,8 +184,13 @@ def collect_video_captions():
             url = "https://www.youtube.com/watch?v=" + vidId
             os.system("youtube-dl --output """"{}/{}"""" --write-sub --write-auto-sub --sub-lang en --skip-download """"{}"""" ".format(channelId, vidId, url))    
 
+def extract_text_from_vtt():
+    for channelId in LIST_OF_CHANNEL_IDS[1:]:
+        transcripts.clean_up_transcripts(channelId)
+
 if __name__ == "__main__":
     # main()
     # collect_videos()
     # collect_videoInfo()
-    collect_video_captions()
+    # collect_video_captions()
+    extract_text_from_vtt()

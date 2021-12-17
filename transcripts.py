@@ -1,12 +1,15 @@
 import webvtt
 import glob
+import os
 
-def clean_up_transcripts():
-    for vttfile in glob.glob("vtt/*"):
-        with open("txt/"+vttfile.split('/')[1].split('.en.')[0]+".txt", 'w') as txtfile:
-            for caption in webvtt.read(vttfile):
-                txtfile.write(caption.text)
+class transcripts:
+    def clean_up_transcripts(dir):
+        os.system("mkdir {}".format(dir+"/"+"txt"))
 
-clean_up_transcripts()
+        for vttfile in glob.glob(dir+"/*.en.vtt"):
+            print("!!", vttfile)
+            with open(dir+"/txt/"+vttfile.split('/')[1].split('.')[0]+".txt", 'w') as txtfile:
+                for caption in webvtt.read(vttfile):
+                    txtfile.write(caption.text)
 
 
