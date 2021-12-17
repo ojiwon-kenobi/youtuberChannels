@@ -165,9 +165,9 @@ def process_list_of_mostViewedVideoIds():
 def collect_video_transcripts_and_mp4s():
     listOfMostViewedVidIds = process_list_of_mostViewedVideoIds()
     print(listOfMostViewedVidIds)
-    for mostViewedVidId in listOfMostViewedVidIds[:1]:
+    for mostViewedVidId in listOfMostViewedVidIds:
         url = "https://www.youtube.com/watch?v=" + mostViewedVidId
-        os.system("youtube-dl --write-sub --write-auto-sub --sub-lang en """"{}"""" ".format(url))
+        os.system("youtube-dl -f 134 --write-sub --write-auto-sub --sub-lang en """"{}"""" ".format(url))
 
 
 if __name__ == "__main__":
