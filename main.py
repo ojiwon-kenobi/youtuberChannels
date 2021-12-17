@@ -143,6 +143,11 @@ def process_list_of_videoIds():
         listOfVidIds = json.loads(j.read())
     return set(listOfVidIds)
 
+def process_dict_of_channelId_to_listOfVidIds():
+    with open('masterSheet.json', 'r') as j:
+        dictOfChannelIdToListOfVidInfos = json.loads(j.read())
+    return dictOfChannelIdToListOfVidInfos
+
 def collect_videoInfo():
     listOfVidIds = process_list_of_videoIds()
     pool= mp.Pool(mp.cpu_count())
@@ -162,16 +167,24 @@ def process_list_of_mostViewedVideoIds():
         print(len(list(dict.values())))
     return list(dict.values())
 
-def collect_video_transcripts_and_mp4s():
+def collect_video_mp4s():
     listOfMostViewedVidIds = process_list_of_mostViewedVideoIds()
     print(listOfMostViewedVidIds)
     for mostViewedVidId in listOfMostViewedVidIds:
         url = "https://www.youtube.com/watch?v=" + mostViewedVidId
-        os.system("youtube-dl -f 134 --write-sub --write-auto-sub --sub-lang en """"{}"""" ".format(url))
+        os.system("youtube-dl -f 134 """"{}"""" ".format(url))    
 
+def collect_video_captions():
+    dictOfChannelIdToListOfVidInfos = process_dict_of_channelId_to_listOfVidIds()
+    for channelId in LIST_OF_CHANNEL_IDS:
+        os.mkdir(channelId)
+        for vidInfo in dictOfChannelIdToListOfVidInfos[channelId]:
+            vidId = vidInfo['vidId']
+            url = "https://www.youtube.com/watch?v=" + vidId
+            os.system("youtube-dl --output """"{}/{}"""" --write-sub --write-auto-sub --sub-lang en --skip-download """"{}"""" ".format(channelId, vidId, url))    
 
 if __name__ == "__main__":
     # main()
     # collect_videos()
     # collect_videoInfo()
-    collect_video_transcripts_and_mp4s()
+    collect_video_captions()
