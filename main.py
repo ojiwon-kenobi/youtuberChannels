@@ -132,7 +132,7 @@ def collect_videos():
 def collect_vidInfo_execute(ids):
     ts=time.time()
     request = youtubeApiClient.videos().list(
-        part="statistics,contentDetails,status,topicDetails",
+        part="statistics,contentDetails,status,topicDetails,snippet",
         id=ids
     )
     response = request.execute()
@@ -142,7 +142,7 @@ def collect_vidInfo_execute(ids):
 def process_list_of_videoIds():
     with open('listOfVideoIds.json', 'r') as j:
         listOfVidIds = json.loads(j.read())
-    return set(listOfVidIds)
+    return listOfVidIds
 
 def process_dict_of_channelId_to_listOfVidIds():
     with open('masterSheet.json', 'r') as j:
@@ -191,6 +191,6 @@ def extract_text_from_vtt():
 if __name__ == "__main__":
     # main()
     # collect_videos()
-    # collect_videoInfo()
+    collect_videoInfo()
     # collect_video_captions()
-    extract_text_from_vtt()
+    # extract_text_from_vtt()
