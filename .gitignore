@@ -5,3 +5,4 @@
 *.txt
 UC*
 __pycache__/
+frames/
