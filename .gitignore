@@ -5,4 +5,5 @@
 *.txt
 UC*
 __pycache__/
+*.zip
 frames/
