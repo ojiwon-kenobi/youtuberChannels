@@ -16,4 +16,3 @@ def resizeImage(path):
     left = (512 - new_width) // 2
     right = 512 - new_width - left
     borderedImg= cv2.copyMakeBorder(ogimg,top,bottom,left,right,cv2.BORDER_CONSTANT,value=[255, 255, 255])
-    cv2.imwrite('512'+path, borderedImg)
