@@ -7,3 +7,4 @@ UC*
 __pycache__/
 *.zip
 frames/
+*/.ipynb_checkpoints/*

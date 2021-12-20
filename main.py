@@ -185,7 +185,7 @@ def collect_video_captions():
             os.system("youtube-dl --output """"{}/{}"""" --write-sub --write-auto-sub --sub-lang en --skip-download """"{}"""" ".format(channelId, vidId, url))    
 
 def extract_text_from_vtt():
-    for channelId in LIST_OF_CHANNEL_IDS[1:]:
+    for channelId in LIST_OF_CHANNEL_IDS:
         transcripts.clean_up_transcripts(channelId)
 
 if __name__ == "__main__":
