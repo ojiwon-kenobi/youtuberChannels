@@ -191,6 +191,6 @@ def extract_text_from_vtt():
 if __name__ == "__main__":
     # main()
     # collect_videos()
-    collect_videoInfo()
+    # collect_videoInfo()
     # collect_video_captions()
-    # extract_text_from_vtt()
+    extract_text_from_vtt()
