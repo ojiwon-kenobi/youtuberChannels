@@ -165,7 +165,7 @@ def collect_vidInfo_execute(ids):
     return response
 
 def process_list_of_videoIds():
-    with open('listOfVideoIds.json', 'r') as j:
+    with open('listOfVideoIds_2.json', 'r') as j:
         listOfVidIds = json.loads(j.read())
     return listOfVidIds
 
@@ -215,7 +215,7 @@ def extract_text_from_vtt():
 
 if __name__ == "__main__":
     # main()
-    # collect_videos()
-    # collect_videoInfo()
+    # collect_videos() #--> to dataProcessing.ipynb cell 
+    collect_videoInfo()
     # collect_video_captions()
-    extract_text_from_vtt()
+    # extract_text_from_vtt()
