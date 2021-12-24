@@ -37,7 +37,32 @@ LIST_OF_CHANNEL_IDS = [
 "UCQ9HvHH-KRYHI5ynj2kbLwQ",
 "UCRfg0SWjIHm_h95e4V8X5og",
 "UCWPB0WpnMIy-g7zncwIhvQg",
-"UCC-slLJZ4p4HOznMUcFn_2g"]
+#====moar
+"UCj6CFdE3LSddaoszxq604TQ",
+"UCXrtqz4fqf-OUEVpp2A1W0w",
+"UChUg_Sd5i74SFoZH2XvagwQ",
+"UC2hm5rD_IrfYRMfq5YQudgA",
+"UC_nEHeUEVNY5ZYLRWg8KoZQ",
+"UCrlzgjrKUa3AlrfSZTBG2fg",
+"UCupWnlhB3PMW1w0CLfLCfug",
+"UCsW0LA-ThH18OCrT9pa2zfQ",
+"UCG-O5k7KKNPABULS20_MAMA",
+"UCepPGz8AVCbggMl3BvboaBA",
+"UCP21EOiKAkCGjv6kqS6UsZw",
+"UC9z7EZAbkphEMg0SP7rw44A",
+"UCZft8Ol-dMtguwam7bWItnw",
+"UCYaxncRvOBu-vtdhxf6qciA",
+"UCte3qx7A5OWTPSnNjV4oheg",
+"UCRei8TBpt4r0WPZ7MkiKmVg",
+"UC6bXfhbiX1PsSi_-pdQeHjg",
+"UC_7lgWbCA_HZQkaxmmQgNoA",
+"UCQO_C1sfUCpUzzV-gxQ-lxA",
+"UCHw-JjzU80GKrGJwI1Uf1OQ",
+"UCDEaY2XwwfKomQAJgGfehWw",
+"UCI-92EMS3ZJ11gz-S_oyaSA",
+"UC7Mk9RmlKT_x8FAsMOJn1cg",
+"UC9i7x4EzTBlNvslu1wWEB8Q",
+]
 API_SERVICE_NAME = "youtube"
 API_VERSION = "v3"
 SCOPES = ["https://www.googleapis.com/auth/youtube.readonly"]
