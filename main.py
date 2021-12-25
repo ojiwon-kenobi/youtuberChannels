@@ -5,38 +5,38 @@
 # https://developers.google.com/explorer-help/guides/code_samples#python
 
 LIST_OF_CHANNEL_IDS = [
-"UCsDmESjqNPukDmVnuneLrqw",
-"UCY6Ij8zOds0WJEeqCLOnqOQ",
-"UClN24S5-fc7LD0JJW0FdGWw",
-"UC3iNdSV_RQU7DHTGpqEW96w",
-"UC_52i6mlrzOZs_NEuSepzAg",
-"UCr3cBLTYmIK9kY0F_OdFWFQ",
-"UCV6g95OBbVtFmN9uiJzkFqQ",
-"UCgCKYs56-LKEPGQ99DzqQOg",
-"UCOwxx9VnEnlFKt5EB70KTzQ",
-"UC2Ds30pkifFVD0CE08wF50g",
-"UC7UGbBVrqLlq6CRxWWUmyKw",
-"UCn1XB-jvmd9fXMzhiA6IR0w",
-"UCFeqAfEuKm7lIg2ddQzh61A",
-"UCAlxwHEm1bWWYoe5VCSQYEg",
-"UCz7iJPVTBGX6DNO1RNI2Fcg",
-"UCOAUz4d1NUNxSHh_SOJtdGQ",
-"UCGGTAB19HlHEWPwwmxHsEKA",
-"UCOsATJw-IZgqGT8MFrHjKGg",
-"UCsKVP_4zQ877TEiH_Ih5yDQ",
-"UCOinp9hALPUcZeoL3Kmaviw",
-"UCGwu0nbY2wSkW8N-cghnLpA",
-"UCu6v4AdYxVH5fhfq9mi5llA",
-"UCj74rJ9Lgl3WTngq675wxKg",
-"UCNIuvl7V8zACPpTmmNIqP2A",
-"UCo8bcnLyZH8tBIH9V1mLgqQ",
-"UCR0O-1cvuPNxDosvSDLpWHg",
-"UCvUmwreRrbxeR1mbmojj8fg",
-"UCUKi4zY5ETSqrKAjTBgjM-g",
-"UCDQBZcjYKP1J1Nu-Y0_D37Q",
-"UCQ9HvHH-KRYHI5ynj2kbLwQ",
-"UCRfg0SWjIHm_h95e4V8X5og",
-"UCWPB0WpnMIy-g7zncwIhvQg",
+# "UCsDmESjqNPukDmVnuneLrqw",
+# "UCY6Ij8zOds0WJEeqCLOnqOQ",
+# "UClN24S5-fc7LD0JJW0FdGWw",
+# "UC3iNdSV_RQU7DHTGpqEW96w",
+# "UC_52i6mlrzOZs_NEuSepzAg",
+# "UCr3cBLTYmIK9kY0F_OdFWFQ",
+# "UCV6g95OBbVtFmN9uiJzkFqQ",
+# "UCgCKYs56-LKEPGQ99DzqQOg",
+# "UCOwxx9VnEnlFKt5EB70KTzQ",
+# "UC2Ds30pkifFVD0CE08wF50g",
+# "UC7UGbBVrqLlq6CRxWWUmyKw",
+# "UCn1XB-jvmd9fXMzhiA6IR0w",
+# "UCFeqAfEuKm7lIg2ddQzh61A",
+# "UCAlxwHEm1bWWYoe5VCSQYEg",
+# "UCz7iJPVTBGX6DNO1RNI2Fcg",
+# "UCOAUz4d1NUNxSHh_SOJtdGQ",
+# "UCGGTAB19HlHEWPwwmxHsEKA",
+# "UCOsATJw-IZgqGT8MFrHjKGg",
+# "UCsKVP_4zQ877TEiH_Ih5yDQ",
+# "UCOinp9hALPUcZeoL3Kmaviw",
+# "UCGwu0nbY2wSkW8N-cghnLpA",
+# "UCu6v4AdYxVH5fhfq9mi5llA",
+# "UCj74rJ9Lgl3WTngq675wxKg",
+# "UCNIuvl7V8zACPpTmmNIqP2A",
+# "UCo8bcnLyZH8tBIH9V1mLgqQ",
+# "UCR0O-1cvuPNxDosvSDLpWHg",
+# "UCvUmwreRrbxeR1mbmojj8fg",
+# "UCUKi4zY5ETSqrKAjTBgjM-g",
+# "UCDQBZcjYKP1J1Nu-Y0_D37Q",
+# "UCQ9HvHH-KRYHI5ynj2kbLwQ",
+# "UCRfg0SWjIHm_h95e4V8X5og",
+# "UCWPB0WpnMIy-g7zncwIhvQg",
 #====moar
 "UCj6CFdE3LSddaoszxq604TQ",
 "UCXrtqz4fqf-OUEVpp2A1W0w",
@@ -170,7 +170,7 @@ def process_list_of_videoIds():
     return listOfVidIds
 
 def process_dict_of_channelId_to_listOfVidIds():
-    with open('masterSheet.json', 'r') as j:
+    with open('masterSheet_2.json', 'r') as j:
         dictOfChannelIdToListOfVidInfos = json.loads(j.read())
     return dictOfChannelIdToListOfVidInfos
 
@@ -184,11 +184,11 @@ def collect_videoInfo():
     pool.close()
     pool.join()
     print("done")
-    with open('videoListResponse.json', 'w') as file:
+    with open('videoListResponse_2.json', 'w') as file:
         json.dump(pool_result, file)
 
 def process_list_of_mostViewedVideoIds():
-    with open('channelId_to_mostViewedVidId.json', 'r') as j:
+    with open('channelId_to_mostViewedVidId_2.json', 'r') as j:
         dict = json.loads(j.read())
         print(len(list(dict.values())))
     return list(dict.values())
@@ -216,6 +216,7 @@ def extract_text_from_vtt():
 if __name__ == "__main__":
     # main()
     # collect_videos() #--> to dataProcessing.ipynb cell 
-    collect_videoInfo()
+    # collect_videoInfo()
     # collect_video_captions()
     # extract_text_from_vtt()
+    collect_video_mp4s()
