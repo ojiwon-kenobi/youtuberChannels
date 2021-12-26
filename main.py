@@ -220,5 +220,5 @@ if __name__ == "__main__":
     # collect_video_captions()
     # extract_text_from_vtt()
     # collect_video_mp4s()
-    extract_text_from_vtt()
+    # extract_text_from_vtt()
     #kQEtRoyFfI8, uDvPIKM-L1o, 0TlV3w1YGqk
