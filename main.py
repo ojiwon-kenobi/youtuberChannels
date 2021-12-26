@@ -62,6 +62,12 @@ LIST_OF_CHANNEL_IDS = [
 "UCI-92EMS3ZJ11gz-S_oyaSA",
 "UC7Mk9RmlKT_x8FAsMOJn1cg",
 "UC9i7x4EzTBlNvslu1wWEB8Q",
+#====fuuuuu
+# "UCnsem444vdU1HhS0mb2wwTA",
+# "UCnbtlei4RJMHWSUq4LKn_SQ",
+# "UC9i7x4EzTBlNvslu1wWEB8Q",
+# "UC1nM46_BMKq4vd4jmd6iMHA",
+# "UCMNxwlfY6P5Rm40QOp8Hqsg"
 ]
 API_SERVICE_NAME = "youtube"
 API_VERSION = "v3"
