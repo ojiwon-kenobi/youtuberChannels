@@ -15,6 +15,6 @@ def mergeJsonLists(filename1, filename2, outputFilename):
         with open(outputFilename, 'w') as out:               # open the file
             json.dump(data1, out)
 
-mergeJsonLists("channelListResponse_1.json", "channelListResponse_2.json", "channelListResponse.json")
-mergeJsonLists("searchListResponse_1.json", "searchListResponse_2.json", "searchListResponse.json")
-mergeJsonLists("videoListResponse_1.json", "videoListResponse_2.json", "videoListResponse.json")
+mergeJsonLists("channelListResponse_0.json", "channelListResponse_1.json", "channelListResponse.json")
+mergeJsonLists("searchListResponse_0.json", "searchListResponse_1.json", "searchListResponse.json")
+# mergeJsonLists("videoListResponse_1.json", "videoListResponse_2.json", "videoListResponse.json")
