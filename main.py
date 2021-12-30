@@ -205,7 +205,7 @@ def collect_video_mp4s():
 
 def collect_video_captions():
     dictOfChannelIdToListOfVidInfos = process_dict_of_channelId_to_listOfVidIds()
-    for channelId in ['UCgmublDj4T0zEP7ngRRGkmg']: #!!!!!!!
+    for channelId in LIST_OF_CHANNEL_IDS: #!!!!!!!
         # os.mkdir(channelId)
         for vidInfo in dictOfChannelIdToListOfVidInfos[channelId]:
             vidId = vidInfo['vidId']
@@ -213,7 +213,7 @@ def collect_video_captions():
             os.system("youtube-dl --output """"{}/{}"""" --write-sub --write-auto-sub --sub-lang en --skip-download """"{}"""" ".format(channelId, vidId, url))    
 
 def extract_text_from_vtt():
-    for channelId in ['UCgmublDj4T0zEP7ngRRGkmg']: #!!!!!!!
+    for channelId in LIST_OF_CHANNEL_IDS: #!!!!!!!
         transcripts.clean_up_transcripts(channelId)
 
 if __name__ == "__main__":
@@ -221,5 +221,5 @@ if __name__ == "__main__":
     # collect_videos() #--> to dataProcessing.ipynb cell 
     # collect_videoInfo()
     # collect_video_captions()
-    extract_text_from_vtt()
-    # collect_video_mp4s()
+    # extract_text_from_vtt()
+    collect_video_mp4s()

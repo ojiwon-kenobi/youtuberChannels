@@ -3,8 +3,10 @@
 *.mp4
 *.vtt
 *.txt
+*.mp4.part
 UC*
 __pycache__/
 *.zip
 frames/
 */.ipynb_checkpoints/*
+animation_analysis/*/
