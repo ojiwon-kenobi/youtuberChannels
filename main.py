@@ -212,6 +212,15 @@ def collect_video_captions():
             url = "https://www.youtube.com/watch?v=" + vidId
             os.system("youtube-dl --output """"{}/{}"""" --write-sub --write-auto-sub --sub-lang en --skip-download """"{}"""" ".format(channelId, vidId, url))    
 
+def collect_video_mp3s():
+    dictOfChannelIdToListOfVidInfos = process_dict_of_channelId_to_listOfVidIds()
+    for channelId in LIST_OF_CHANNEL_IDS: #!!!!!!!
+        # os.mkdir(channelId)
+        for vidInfo in dictOfChannelIdToListOfVidInfos[channelId]:
+            vidId = vidInfo['vidId']
+            url = "https://www.youtube.com/watch?v=" + vidId
+            os.system("youtube-dl --output """"{}/{}"""" --extract-audio --audio-format mp3 """"{}"""" ".format(channelId, vidId, url))    
+
 def extract_text_from_vtt():
     for channelId in LIST_OF_CHANNEL_IDS: #!!!!!!!
         transcripts.clean_up_transcripts(channelId)
@@ -222,4 +231,5 @@ if __name__ == "__main__":
     # collect_videoInfo()
     # collect_video_captions()
     # extract_text_from_vtt()
-    collect_video_mp4s()
+    # collect_video_mp4s()
+    collect_video_mp3s()
