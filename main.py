@@ -226,10 +226,10 @@ def extract_text_from_vtt():
         transcripts.clean_up_transcripts(channelId)
 
 if __name__ == "__main__":
-    # collect_channelListResponse()
-    # collect_videos() #--> to dataProcessing.ipynb cell 
-    # collect_videoInfo()
-    # collect_video_captions()
-    # extract_text_from_vtt()
-    # collect_video_mp4s()
+    collect_channelListResponse()
+    collect_videos() #--> to dataProcessing.ipynb cell 
+    collect_videoInfo()
+    collect_video_captions()
+    extract_text_from_vtt()
+    collect_video_mp4s()
     collect_video_mp3s()
