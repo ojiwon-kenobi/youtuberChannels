@@ -74,6 +74,55 @@ Removing outliers didn't seem to improve the correlation value. I also tried get
 ![a](assets/rvalues.png). 
 The increase of p-values as we remove outliers seems to indicate that there is no relationship between semantics and subscriber counts. 
 
+## Shortcomings
+There are some flaws in the methodology above. 
+
+Part of the `Vader` algorithm works by [applying rules](https://github.com/nltk/nltk/blob/develop/nltk/sentiment/vader.py#L217) to calculate sentiment valence (the magnitude of the polarity). 
+
+The capitalization of words is seen as emphasis by VADER and impacts the following adjective. 
+```
+#https://github.com/nltk/nltk/blob/develop/nltk/sentiment/vader.py#L217
+    def allcap_differential(self, words):
+        """
+        Check whether just some words in the input are ALL CAPS
+        :param list words: The words to inspect
+        :returns: `True` if some but not all items in `words` are ALL CAPS
+        """
+        is_different = False
+        allcap_words = 0
+        for word in words:
+            if word.isupper():
+                allcap_words += 1
+        cap_differential = len(words) - allcap_words
+        if 0 < cap_differential < len(words):
+            is_different = True
+        return is_different
+
+```
+
+Punctuation also plays a role in sentiment calculations, e.g. an `!` magnifying any sentiment that preceded the punctuation. 
+```
+    def _punctuation_emphasis(self, sum_s, text):
+        # add emphasis from exclamation points and question marks
+        ep_amplifier = self._amplify_ep(text)
+        qm_amplifier = self._amplify_qm(text)
+        punct_emph_amplifier = ep_amplifier + qm_amplifier
+        return punct_emph_amplifier
+```
+As seen below, how the words are passed into `Vader` matters. 
+![a](assets/example2.png)
+
+These are just a couple of examples. 
+Given that captions often forego punctuation, especially auto-generated captions which are mostly speech-to-text and do not consider punctuation within scope, and that there's a lot of missing information with trying to estimate sentiment on caption files. 
+
+Captions are also not very compatible with `Vader`'s algorithm.  
+[paper](http://eegilbert.org/papers/icwsm14.vader.hutto.pdf) (VADER: A Parsimonious Rule-based Model for Sentiment Analysis of Social Media Text): 
+>In essence, this paper reports on three interrelated efforts: 
+>1) the development and validation of a gold standard sentiment lexicon that is sensitive both the polarity and the intensity of sentiments expressed in social media microblogs (but **which is also generally applicable to sentiment analysis in other domains**); 
+>2) the identification and subsequent experimental evaluation of generalizable rules regarding **conventional uses of grammatical and syntactical aspects** of text for assessing sentiment intensity; and 
+>3) comparing the performance of a parsimonious lexicon and rule-based model against other established and/or typical sentiment analysis baselines
+
+The purpose of captions is to clarify a scene. They're not meant to convey any meaning on their own and work with a visual to communicate something to an audience. It doesn't rely on grammar or syntax to get any information across- which may be why it's not a great use case of `Vader`.
 
 # Frame-by-Frame Analysis
 
