@@ -114,17 +114,13 @@ Two issues I realized **after** I closed the book on the project.
 1. My dataset is small and skewed. 
 Finding correlation in a small dataset is dicey, but it's worse when the dataset is skewed. 
 Most of the youtubers in my dataset are verified- they have at least 100k subscribers. They are well-known in the Youtube domain, and I ended up with them because I know them and their names kept popping up in my searches. If I had an equal proportion of 2d animation commentary youtubers with smaller subscriber counts, the results could have been different. 
-2. The data extracted from the content is noisy. 
+2. The data extracted from the content is noisy and hard to clean. 
 For the semantic analysis, I gathered caption files, human-generated preferred over auto-generated. Human-generated might be from a volunteer, the youtuber themselves, or a fan being very extra. 
 
-The last case poses a lot of issues for people like me trying to analyze sentiment over captions. 
+The last case poses a lot of issues for people like me trying to analyze sentiment over captions. There's also contextual captions like **[wind rustling]** and **[Music ]** 
 
 
+For the animation analysis, my focus was on the 2d animation and editing. A lot of the videos have advertisement clips in them (__"This video is sponsored by NordVPN 😊🎶"__). Others have portions of video footage mixed in with the animation. A solution would be to find or build a model that classifies clips as video footage vs. animation, but I already spent a month on thissss... 
 
-
-There's also contextual captions like **[wind rustling]** and **[Music ]** 
-
-
-For the animation analysis, my focus was on the 2d animation and editing. 
-
+Maybe it'll be another fun side-project. 
 
