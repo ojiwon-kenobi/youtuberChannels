@@ -104,9 +104,25 @@ From that, I captured how much of the video was colorized by reading each image 
 This was a little better than the semantic output, where the correlation coefficient between how colored the art was to the average subcount per year had a negative correlation of -.3. (aka, more colors, possibly more subs)
 ![a](assets/colorRatioToSub.png)
 
-I tried a couple of other things, such as getting how frequently the animation "changes". I began by calculating the MSE (mean squared error) between the two consecutive frames and seeing the overall distribution of them over different videos. It turned out to be very very spread out with some 
+I tried a couple of other things, such as getting how frequently the animation "changes". Some animators use rigging, draw pictures and put them in order (like a powerpoint slide), animate short clips, and animate longer clips. I was wondering if this mattered at all. 
 
+I started out with this grand idea of identifying scenes and avg scene length through the methodology proposed in this [paper](https://arxiv.org/abs/2003.10685) using MSE values, but the MSE turned out to vary wildly between different videos. 
+![a](assets/mse_mean_plot.png)
+Applying the same rules to a video with a mean MSE of `60` and a video with mean `2118` didn't seem right. A video with a low mean MSE probably meant there were fewer changes between each frame and a video with a high mean MSE probably meant there were more changes between each frame. I kept this information stored for later analysis, but decided to remove stills by using the measurement of SSIM (structural similarity) which normalizes how different two images are between `0` and `1`. A SSIM value of `1` means they are identical and a SSIM value of `0` means the images are completely different. Below are some examples. 
+![a](assets/high.png)
 
+![a](assets/mid.png)
+
+![a](assets/low.png)
+
+Given some examples including the one above, I set the 'still frame SSIM' threshold at 0.999 and removed the second frame from any consecutive pair that had a SSIM value that was larger than 0.999. 
+
+And then I divided the number of unique frames by the number of total frames to get the 'validityRatio'. I could've named this better. And then I plotted it on the x-axis with the subCount as subscribers and there was no correlation. 
+![a](assets/validityRatio.png)
+The r-value is -0.08. 
+
+Given all the information I gathered (mse_mean, mse_std, ssim_mean, ssim_std), I tried getting the correlation values as well. I didn't think I could get an r-value closer to 0 than -0.08, but I did. 
+![a](assets/dies.png)
 
 
 # Hindsight
@@ -115,12 +131,21 @@ Two issues I realized **after** I closed the book on the project.
 Finding correlation in a small dataset is dicey, but it's worse when the dataset is skewed. 
 Most of the youtubers in my dataset are verified- they have at least 100k subscribers. They are well-known in the Youtube domain, and I ended up with them because I know them and their names kept popping up in my searches. If I had an equal proportion of 2d animation commentary youtubers with smaller subscriber counts, the results could have been different. 
 2. The data extracted from the content is noisy and hard to clean. 
-For the semantic analysis, I gathered caption files, human-generated preferred over auto-generated. Human-generated might be from a volunteer, the youtuber themselves, or a fan being very extra. 
+For the semantic analysis, I gathered caption files, human-generated preferred over auto-generated. Human-generated might be from a volunteer, the youtuber themselves, or a fan being extra. 
+![a](assets/aloha.png)
+![a](assets/lol.png)
+![a](assets/bleh.png)
+(...and while securing the images above, I realized this video's captions is also in my data OTL
+![a](assets/mOEyGEG.png))
+And then as seen above, it's hard to find out which videos in a 2d animation commentary youtuber's channel is actual animation or video footage or a game stream. There isn't really a genre categorization system put into place on youtube's platform which is why I went and removed any videos assigned a category that had the string 'music' in it. Music was easy, but there were some videos that talked about minecraft that got assigned the genre of 'game' while there was a game stream that was also assigned the genre of 'game'. 
+So the data I collected was a bit flawed.
 
-The last case poses a lot of issues for people like me trying to analyze sentiment over captions. There's also contextual captions like **[wind rustling]** and **[Music ]** 
+For the animation analysis, my focus was on the 2d animation and editing. A lot of the videos have advertisement clips in them (__"This video is sponsored by NordVPN 😊🎶"__). Others have portions of video footage mixed in with the animation. A solution for removing those portions would be to find or build a model that classifies clips as video footage vs. animation, but I already spent a month on this. Maybe it'll be another side-project. 
 
+# If I were to do this again, 
+I'd 
+1. probably not do this kind of data-analysis on youtubers. The dataset was far more noisy and hard to control than I anticipated. 
+2. not jump head-in. The entire process, I'd think of one thing, try it, think of another thing, try that, and then loop back and get confused. I underestimated the importance of organization. I guess the important thing to do is to scope the problem before starting the investigation and have some loose but clear guidelines for what I wanted to do with the dataset.
+3. actually apply good software-engineering practices. I would keep my code organized and easy to run. I didn't think I'd have to add new datapoints or rerun anything- so my code was just a one-shot effort to get something done. It resulted in a lot of complications when I tried to go back to it. 
 
-For the animation analysis, my focus was on the 2d animation and editing. A lot of the videos have advertisement clips in them (__"This video is sponsored by NordVPN 😊🎶"__). Others have portions of video footage mixed in with the animation. A solution would be to find or build a model that classifies clips as video footage vs. animation, but I already spent a month on thissss... 
-
-Maybe it'll be another fun side-project. 
-
+But it was fun. 
