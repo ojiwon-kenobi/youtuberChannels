@@ -137,7 +137,10 @@ Given all the information I gathered (mse_mean, mse_std, ssim_mean, ssim_std), I
 Two issues I realized **after** I closed the book on the project. 
 1. My dataset is small and skewed. 
 Finding correlation in a small dataset is dicey, but it's worse when the dataset is skewed. 
-Most of the youtubers in my dataset are verified- they have at least 100k subscribers. They are well-known in the Youtube domain, and I ended up with them because I know them and their names kept popping up in my searches. If I had an equal proportion of 2d animation commentary youtubers with smaller subscriber counts, the results could have been different. 
+Most of the youtubers in my dataset are verified- they have at least 100k subscribers. I added them because I was familiar with their names. If I had an equal proportion of 2d animation commentary youtubers with smaller subscriber counts, the results could have been different. 
+Also, I have two channelIds that should not be part of my dataset but are (`[UCRei8TBpt4r0WPZ7MkiKmVg, UCC-slLJZ4p4HOznMUcFn_2g]`) and chanelIds that should've been added: (`[UCTwxXdhXJCZ2KupowAZsUbQ, UCsXVk37bltHxD1rDPwtNM8Q, UCgb5Cb71XvKXT5V1d2ORVmg]`)
+And then there's also these two non-english but totally fit my description. `[UCN4iFWFm-mLlDp_MGUNF1mg, UC1-lwASmWqqU1V_WLNIRALw]`... I have experience using NLTK's translation features. ...I could do it. But maybe later. 
+
 2. The data extracted from the content is noisy and hard to clean. 
 For the semantic analysis, I gathered caption files, human-generated preferred over auto-generated. Human-generated might be from a volunteer, the youtuber themselves, or a fan being extra. 
 ![a](assets/aloha.png)
