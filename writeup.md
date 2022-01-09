@@ -1,5 +1,13 @@
-## Semantic and Visual Analysis of 2D commentary/ storytime youtubers
+## Semantic and Visual Analysis of 2D commentary/ storytime Youtubers
 ***
+# Introduction
+I've subscribed to 35 channels on Youtube and 12 of them are hand-drawn animation commentary youtubers.
+By 'animation commentary youtuber', I mean people who make animations of what they're narrating. To see an example, copy a videoId from [all the vidIds](listOfVideoIds.json) I collected from the 61 youtubers who are in my dataset. Just stick it at the end of the string `https://www.youtube.com/watch?v=` and most likely, you'll see an example. The reason I had to say 'most likely' is written in the "Hindsight" section. 
+
+I've had daydreams of becoming one myself, so I made a 2d animation commentary video in one week and realized this was a lot more work than I thought. The problem was, I had so many other (time-consuming) things I wanted to do in the meantime.
+So I decided to put my code-wrangling skills (I'm too ashamed to say software-engineering skills given the condition of my repo) to use and commit to a data-science project. 
+
+Some specifications on my dataset: I'm focusing on 2d hand-drawn animation commentary youtubers (Here's a list of the youtubers' channelIds. Just copy and paste one at the end of `https://www.youtube.com/channel/` in your browser's url box.)
 
 # Data Collection
 I got a list of 61 2d commentary/storytime youtubers from various sources including  commentary videos recommended to me by youtube, famousbirthdays.com, and linked channels made public on other youtubers' profiles. 
@@ -144,8 +152,7 @@ For the animation analysis, my focus was on the 2d animation and editing. A lot 
 
 # If I were to do this again, 
 I'd 
-1. probably not do this kind of data-analysis on youtubers. The dataset was far more noisy and hard to control than I anticipated. 
+1. probably not do this kind of data-analysis on youtubers. The dataset was far more noisy and hard to control than I anticipated. Or at least have a better set of tools and a deeper understanding in data science to carryout analysis. 
 2. not jump head-in. The entire process, I'd think of one thing, try it, think of another thing, try that, and then loop back and get confused. I underestimated the importance of organization. I guess the important thing to do is to scope the problem before starting the investigation and have some loose but clear guidelines for what I wanted to do with the dataset.
 3. actually apply good software-engineering practices. I would keep my code organized and easy to run. I didn't think I'd have to add new datapoints or rerun anything- so my code was just a one-shot effort to get something done. It resulted in a lot of complications when I tried to go back to it. 
-
 But it was fun. 
