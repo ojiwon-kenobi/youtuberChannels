@@ -117,6 +117,7 @@ I tried a couple of other things, such as getting how frequently the animation "
 I started out with this grand idea of identifying scenes and avg scene length through the methodology proposed in this [paper](https://arxiv.org/abs/2003.10685) using MSE values, but the MSE turned out to vary wildly between different videos. 
 ![a](assets/mse_mean_plot.png)
 Applying the same rules to a video with a mean MSE of `60` and a video with mean `2118` didn't seem right. A video with a low mean MSE probably meant there were fewer changes between each frame and a video with a high mean MSE probably meant there were more changes between each frame. I kept this information stored for later analysis, but decided to remove stills by using the measurement of SSIM (structural similarity) which normalizes how different two images are between `0` and `1`. A SSIM value of `1` means they are identical and a SSIM value of `0` means the images are completely different. Below are some examples. 
+
 ![a](assets/high.png)
 
 ![a](assets/mid.png)
