@@ -14,7 +14,7 @@ def collect_video_frames():
     listOfMostViewedVidIds = process_list_of_mostViewedVideoIds()
     print(listOfMostViewedVidIds)
     for mostViewedVidId in listOfMostViewedVidIds:
-        os.mkdir(mostViewedVidId)
+        os.mkdir("frames/" + mostViewedVidId)
         url = "https://www.youtube.com/watch?v=" + mostViewedVidId
         ydl_opts = {}
 
@@ -41,7 +41,7 @@ def collect_video_frames():
                         break
 
                     resized = cv2.resize(frame, (256,256), interpolation = cv2.INTER_AREA)
-                    cv2.imwrite("{}/{}.png".format(mostViewedVidId, str(count).zfill(5)), resized)  
+                    cv2.imwrite("frames/{}/{}.png".format(mostViewedVidId, str(count).zfill(5)), resized)  
                     count+=1
                 cap.release()
 
