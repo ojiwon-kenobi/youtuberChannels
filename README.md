@@ -103,7 +103,7 @@ Given that captions often forego punctuation, especially auto-generated captions
 The purpose of captions is to clarify a scene. They're not meant to convey any meaning on their own and work with a visual to communicate something to an audience. It doesn't rely on grammar or syntax to get any information across- which may be why it's not a great use case of `Vader`.
 
 # Frame-by-Frame Analysis
-Using `OpenCV`, I got frames (256x256) from the most viewed videos of each channel. Ideally, I would've analyzed all the videos for each channel, but just uploading two videos' worth of frames to google drive estimated four hours lol 
+Using `OpenCV`, I got frames (256x256) from the most viewed videos of each channel. Ideally, I would've analyzed all the videos for each channel, but just uploading two videos' worth of frames to google drive estimated four hours lol and there is no way I can store the frames of more than 5000 videos on my laptop locally. 
 
 Because the number of the videos was fairly small, I removed any instances of videos shorter than 3 minutes and 30 seconds. 
 
