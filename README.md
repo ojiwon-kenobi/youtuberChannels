@@ -87,10 +87,11 @@ For each channel, I calculated average of the compound scores and got the genera
 
 Here is the resulting plot. 
 ![a](assets/subToSentiment.png)
-
-Removing outliers didn't seem to improve the correlation value. I also tried getting Spearman's correlation because Pearson's was not working. Spearman's also failed to get a monotonic relationship between the two variables. 
-![a](assets/rvalues.png). 
-The increase of p-values as we remove outliers seems to indicate that there is no relationship between semantics and subscriber counts. 
+![a](assets/rvalues.png)
+Removing outliers didn't seem to improve the correlation value (rvalue). Removing the , however, brought the p-value down to 0.095 which may support the idea of rejecting the null hypothesis. I also tried getting Spearman's correlation in hopes of getting clearer results than through Pearson's. 
+![a](assets/rvalues2.png)
+Spearman's also failed to get a monotonic relationship between the two variables. 
+Thus, the results are inconclusive.
 
 ## Shortcomings
 **application of `VADER` on captions**
