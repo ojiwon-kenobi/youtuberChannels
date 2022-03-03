@@ -119,7 +119,7 @@ There were packages that claimed to do that, but they didn't have any proven tra
 
 
 # Frame-by-Frame Analysis
-Using `OpenCV`, `youtube-dl` and `ffmpeg`, I got frames (256x256) from the most viewed videos of each channel. Ideally, I would've analyzed all the videos for each channel, but just uploading two videos' worth of frames to a server (kaggle, google drive) was an estimated four hours lol and there is no way I can store the frames of more than 5000 videos on my laptop locally. 
+Using `OpenCV`, `youtube-dl` and `ffmpeg`, I got frames (256x256) from the most viewed videos of each channel. Ideally, I would've analyzed all the videos for each channel, but just uploading two videos' worth of frames to a server (kaggle, google drive) was an estimated four hours and there is no way I can store the frames of more than 5000 videos on my laptop locally. 
 
 I found out that there were some videos that were animation memes so I removed any instances of videos shorter than 3 minutes and 30 seconds and left the channel out of analysis. 
 
@@ -147,7 +147,7 @@ And then I divided the number of unique frames by the number of total frames to 
 ![a](assets/validityRatio.png)
 The r-value is -0.08. 
 
-Given all the information I gathered (mse_mean, mse_std, ssim_mean, ssim_std), I tried getting the correlation values as well. I didn't think I could get an r-value closer to 0 than -0.08, but I did. 
+Given all the information I gathered (mse_mean, mse_std, ssim_mean, ssim_std), I tried getting the correlation values as well. The r-values are all very low (<0.1) which means the correlation is very weak between the normalized subscriber counts and each random variable. The p-values are all very high (>0.5) which means there is no evidence to suggest that there is a correlation. It may be safe to say there is no relationship between animation and subscriber counts. 
 ![a](assets/dies.png)
 
 # Shortcomings 
